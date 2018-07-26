@@ -11,6 +11,7 @@ namespace ANEI_bot
 
         public Shell()
         {
+            outputTitle();
             controller = new BotController();
             loop = true;
             inputCMD();
@@ -38,7 +39,7 @@ namespace ANEI_bot
             switch (separate[0])
             {
                 case "post":
-                    if(separate[1] != null)
+                    if(separate.Length > 1)
                     {
                         controller.ServiceClient.sendMessage(separate[1]);
                     }
@@ -58,7 +59,7 @@ namespace ANEI_bot
                 case "":
                     break;
                 default:
-                    Console.Write("コマンドが見つかりません。");
+                    Console.WriteLine("コマンドが見つかりません。");
                     break;
             }
         }
@@ -71,6 +72,32 @@ namespace ANEI_bot
             }
 
             Console.Write("ANEI_BOT > ");
+        }
+
+        private void outputTitle()
+        {
+            Console.WriteLine("-----------------------------");
+            outputVersion();
+            Console.WriteLine("-----------------------------");
+
+        }
+
+        private void outputVersion()
+        {
+            Console.WriteLine("ANEI_BOT");
+            Console.WriteLine("Version {0}", getAssemblyVersion());
+            Console.WriteLine("Copyright (c) 2018 Kousokujin.");
+            Console.WriteLine("Released under the MIT license.");
+        }
+
+        static public string getAssemblyVersion()
+        {
+            System.Diagnostics.FileVersionInfo ver = System.Diagnostics.FileVersionInfo.GetVersionInfo(
+                System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            string version = ver.ProductVersion;
+
+            return version;
         }
     }
 }
