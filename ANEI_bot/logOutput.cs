@@ -16,7 +16,7 @@ namespace ANEI_bot
         private static DateTime dt;
         private static string date;
         private static string time;
-        private static List<string> logQue;
+        public static List<string> logQue;
 
         private static bool loop = false;
 

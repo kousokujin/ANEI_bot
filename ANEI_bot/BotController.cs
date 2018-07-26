@@ -7,7 +7,7 @@ namespace ANEI_bot
 {
     class BotController
     {
-        AbstractClient ServiceClient;
+        public AbstractClient ServiceClient;
         bool loop = false;
         DateTime NextPost;  //おすすめクエスト通知時間
         DateTime notifyANEI;    //暗影の日1時間前
@@ -36,13 +36,13 @@ namespace ANEI_bot
 
         private void setANEInotify()
         {
-            TimeSpan ts60 = new TimeSpan(1, 0, 0, 0);
-            DateTime nowDT = DateTime.Now;
-            (int day, DateTime time) = RecommendQuestCalculator.nextnextQuest(0, nowDT);
+            TimeSpan ts60 = new TimeSpan(1, 0, 0);
+            //DateTime nowDT = DateTime.Now;
+            (int day, DateTime time) = RecommendQuestCalculator.nextnextQuest(0, DateTime.Now);
             
-            if(day == 1 && (nowDT > new DateTime(nowDT.Year,nowDT.Month,nowDT.Day,23,0,0)))
+            if(day == 1 && (DateTime.Now > new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,23,0,0)))
             {
-                DateTime fixDT = nowDT + new TimeSpan(1, 0, 0, 0);
+                DateTime fixDT = DateTime.Now + new TimeSpan(1, 0, 0, 0);
                 (day, time) = RecommendQuestCalculator.nextnextQuest(0, fixDT);
             }
 

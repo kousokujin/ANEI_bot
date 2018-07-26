@@ -41,7 +41,7 @@ namespace ANEI_bot
         /// <returns>その日までの日数、クエストの日</returns>
         public static (int days,DateTime day) nextQuest(int quest,DateTime nowDay)
         {
-            DateTime start = nowDay;
+            DateTime start = new DateTime(nowDay.Year, nowDay.Month, nowDay.Day, 0, 0, 0);
             int day = 0;
 
             while (quest != recommandQuest(start))
@@ -50,7 +50,7 @@ namespace ANEI_bot
                 day++;
             }
 
-            return (day, fixDateTime(start));
+            return (day, start);
         }
 
         /// <summary>

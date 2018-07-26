@@ -6,9 +6,7 @@ namespace ANEI_bot
     {
         static void Main(string[] args)
         {
-            TwitterClient client = new TwitterClient();
-            //client.Authentication();
-            client.sendMessage("ああああああ");
+            Shell sh = new Shell();
         }
     }
 }

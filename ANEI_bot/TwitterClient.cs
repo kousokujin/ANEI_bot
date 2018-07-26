@@ -78,8 +78,9 @@ namespace ANEI_bot
                 try
                 {
                     logOutput.writeLog("SendTweet「{0}」", message);
-                    var tsk = tkn.Statuses.UpdateAsync(new { status = message });
-                    tsk.Wait();
+                    //var tsk = tkn.Statuses.UpdateAsync(new { status = message });
+                    //tsk.Wait();
+                    Console.WriteLine(message);
                     return true;
                 }
                 catch
