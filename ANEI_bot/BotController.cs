@@ -83,7 +83,7 @@ namespace ANEI_bot
         private string ANEI_POST(DateTime time)
         {
             string post = "";
-            int RndIndex = rnd.Next() % 4;
+            int RndIndex = rnd.Next() % 7;
 
             switch (RndIndex)
             {
@@ -97,7 +97,20 @@ namespace ANEI_bot
                     post += "本日は暗影の日です。レベリングの日です。";
                     break;
                 case 3:
-                    post += "今日のおすすめクエストは暗影渦巻く壊れた世界です。";
+                    post += "今日は暗影の日だ！暗影から、レベリングから逃げるんじゃねえぞ・・・";
+                    break;
+                case 4:
+                    post += "「今日は何の日だか知ってる？」「今日はね、暗影渦巻く壊れた世界の日だよ」";
+                    break;
+                case 5:
+                    post += "今日は暗影♪L( ＾ω＾ )┘└( ＾ω＾ )」♪暗影レベリングが始まった♪L( ＾ω＾ )┘└( ＾ω＾ )」♪";
+                    break;
+                case 6:
+                    post += "＿人人人人人人人人人人＿";
+                    post += Environment.NewLine;
+                    post += "＞　暗影が始まった！　＜";
+                    post += Environment.NewLine;
+                    post += "￣Y^Y^Y^Y^Y^Y^Y^Y^Y￣";
                     break;
                 default:
                     break;
@@ -108,7 +121,7 @@ namespace ANEI_bot
 
         public void ANEInotify()
         {
-            ServiceClient.sendMessage("もうすぐ暗影の日が始まるぞ！準備はいいか？");
+            ServiceClient.sendMessage("もうすぐ暗影の日だ！うおおおおおお！！！！！！");
         }
 
         private void eventloop()
