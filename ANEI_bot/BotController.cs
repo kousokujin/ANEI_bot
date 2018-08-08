@@ -83,7 +83,7 @@ namespace ANEI_bot
         private string ANEI_POST(DateTime time)
         {
             string post = "";
-            int RndIndex = rnd.Next() % 7;
+            int RndIndex = rnd.Next() % 8;
 
             switch (RndIndex)
             {
@@ -94,7 +94,7 @@ namespace ANEI_bot
                     post += "さぁ！ひれ伏したまえ。暗影の時間だ！";
                     break;
                 case 2:
-                    post += "本日は暗影の日です。レベリングの日です。";
+                    post += "応えよ暗影！　我が経験値に！";
                     break;
                 case 3:
                     post += "今日は暗影の日だ！暗影から、レベリングから逃げるんじゃねえぞ・・・";
@@ -111,6 +111,9 @@ namespace ANEI_bot
                     post += "＞　暗影が始まった！　＜";
                     post += Environment.NewLine;
                     post += "￣Y^Y^Y^Y^Y^Y^Y^Y^Y￣";
+                    break;
+                case 7:
+                    post += "暗影渦巻く壊れた世界は経験値へと収束する!!";
                     break;
                 default:
                     break;
