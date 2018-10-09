@@ -83,7 +83,7 @@ namespace ANEI_bot
         private string ANEI_POST(DateTime time)
         {
             string post = "";
-            int RndIndex = rnd.Next() % 8;
+            int RndIndex = rnd.Next() % 9;
 
             switch (RndIndex)
             {
@@ -115,6 +115,40 @@ namespace ANEI_bot
                 case 7:
                     post += "暗影渦巻く壊れた世界は経験値へと収束する!!";
                     break;
+                case 8:
+                    //これはひどいと僕もおもった。
+                    post += "＿人人人人人人人＿";
+                    post += Environment.NewLine;
+                    post += "＞レベリングだ！＜";
+                    post += Environment.NewLine;
+                    post += "￣Y^Y^Y^Y^Y^Y￣";
+                    post += Environment.NewLine;
+                    post += Environment.NewLine;
+                    post += "　 _n";
+                    post += Environment.NewLine;
+                    post += "　( ｜　 ハ_ハ";
+                    post += Environment.NewLine;
+                    post += "　 ＼＼ ( ‘-^ 　)";
+                    post += Environment.NewLine;
+                    post += "　　 ＼￣￣　 )";
+                    post += Environment.NewLine;
+                    post += "　　　 ７　　/";
+                    post += Environment.NewLine;
+                    post += "＿人人人人＿";
+                    post += Environment.NewLine;
+                    post += "＞暗影集合＜";
+                    post += Environment.NewLine;
+                    post += "￣Y^Y^Y^Y￣";
+                    post += Environment.NewLine;
+                    post += Environment.NewLine;
+                    post += "　ハ_ハ";
+                    post += Environment.NewLine;
+                    post += "（ ‘-^ 　)　　n";
+                    post += Environment.NewLine;
+                    post += "￣　　 ＼　( E)";
+                    post += Environment.NewLine;
+                    post += "７　　/＼ヽ/ /";
+                    break;
                 default:
                     break;
             }
@@ -124,7 +158,30 @@ namespace ANEI_bot
 
         public void ANEInotify()
         {
-            ServiceClient.sendMessage("もうすぐ暗影の日だ！うおおおおおお！！！！！！");
+            string post = "";
+            int RndIndex = rnd.Next() % 5;
+
+            switch (RndIndex)
+            {
+                case 0:
+                    post += "もうすぐ暗影の日だ！うおおおおおお！！！！！！";
+                    break;
+                case 1:
+                    post += "暗影が始まる！5000兆経験値ほしい！";
+                    break;
+                case 2:
+                    post += "明日は暗影、がんばるぞい！";
+                    break;
+                case 3:
+                    post += "ああああああああ♡♡♡♡♡♡♡♡♡暗影が始まるぅ～～～～♡♡♡♡♡♡♡♡♡";
+                    break;
+                case 4:
+                    post += "暗影がはじまるざますよ";
+                    break;
+                default:
+                    break;
+            }
+            ServiceClient.sendMessage(post);
         }
 
         private void eventloop()
