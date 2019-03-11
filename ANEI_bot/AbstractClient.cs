@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ANEI_bot
 {
-    abstract class AbstractClient
+    public abstract class AbstractClient
     {
 
         public abstract bool sendMessage(string message);
@@ -13,7 +13,7 @@ namespace ANEI_bot
         public abstract loginParams loadToken();
     }
 
-    class loginParams
+    public class loginParams
     {
         public string LoginClientName = "";
     }

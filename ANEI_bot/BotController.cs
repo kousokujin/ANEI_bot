@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ANEI_bot
 {
-    class BotController
+    public class BotController
     {
         public AbstractClient ServiceClient;
         bool loop = false;
@@ -18,6 +18,16 @@ namespace ANEI_bot
         public BotController()
         {
             ServiceClient = new TwitterClient();
+            setNextPostTime();
+            setANEInotify();
+            rnd = new Random();
+
+            looptask = StartLoop();
+        }
+
+        public BotController(AbstractClient client)
+        {
+            this.ServiceClient = client;
             setNextPostTime();
             setANEInotify();
             rnd = new Random();
