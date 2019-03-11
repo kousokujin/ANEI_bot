@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ANEI_bot
 {
-    class QuestConfig
+    public class QuestConfig
     {
         /// <summary>
         /// エポックとなる日
@@ -22,7 +22,7 @@ namespace ANEI_bot
         public List<string> quest_names;
     }
 
-    class QuestConfiguraor
+    public class QuestConfiguraor
     {
         public List<QuestConfig> quests;
 
@@ -37,8 +37,8 @@ namespace ANEI_bot
             quests.Add(q1);
 
             QuestConfig q2 = new QuestConfig();
-            q2.epoch_day = new DateTime(2019, 3, 27);
-            q2.start_time = new DateTime(2019, 3, 27);
+            q2.epoch_day = new DateTime(2019, 3, 28);
+            q2.start_time = new DateTime(2019, 3, 28);
             q2.quest_names = new List<string>() { "暗影渦巻く壊れた世界" };
             quests.Add(q2);
             

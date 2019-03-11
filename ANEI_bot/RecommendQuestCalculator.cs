@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ANEI_bot
 {
-    static class RecommendQuestCalculator
+    public static class RecommendQuestCalculator
     {
         //基準となる日(暗影の日)
         //static DateTime epoc = new DateTime(2018, 5, 31);
@@ -33,7 +33,7 @@ namespace ANEI_bot
             DateTime epoc = qst.epoch_day;
 
             TimeSpan ts = time - epoc;
-            return qst.quest_names[ts.Days % 5];
+            return qst.quest_names[ts.Days % qst.quest_names.Count];
         }
 
         /// <summary>
@@ -94,10 +94,12 @@ namespace ANEI_bot
         public static (int days, DateTime day) nextnextQuest(string quest, DateTime nowDay)
         {
             (int d, DateTime time) = nextQuest(quest, nowDay);
+            QuestConfig questconfig = getQuestConfig(nowDay);
             if (d == 0)
             {
                 DateTime addOneday = (fixDateTime(nowDay) + new TimeSpan(1, 0, 0, 0));
-                return nextQuest(quest,addOneday);
+                (int day2, DateTime time2) = nextQuest(quest, addOneday);
+                return (questconfig.quest_names.Count,time2);
             }
             else
             {
