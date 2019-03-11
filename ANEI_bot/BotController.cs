@@ -38,12 +38,12 @@ namespace ANEI_bot
         {
             TimeSpan ts60 = new TimeSpan(1, 0, 0);
             //DateTime nowDT = DateTime.Now;
-            (int day, DateTime time) = RecommendQuestCalculator.nextnextQuest(0, DateTime.Now);
+            (int day, DateTime time) = RecommendQuestCalculator.nextnextQuest("暗影渦巻く壊れた世界", DateTime.Now);
             
             if(day == 1 && (DateTime.Now > new DateTime(DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day,23,0,0)))
             {
                 DateTime fixDT = DateTime.Now + new TimeSpan(1, 0, 0, 0);
-                (day, time) = RecommendQuestCalculator.nextnextQuest(0, fixDT);
+                (day, time) = RecommendQuestCalculator.nextnextQuest("暗影渦巻く壊れた世界", fixDT);
             }
 
             time = time - ts60;
@@ -59,18 +59,18 @@ namespace ANEI_bot
         /// <param name="time"></param>
         public void postRecommendQuest(DateTime time)
         {
-            int index = RecommendQuestCalculator.recommandQuest(time);
+            string quest_name = RecommendQuestCalculator.recommandQuest(time);
 
-            if (index == 0)
+            if (quest_name == "暗影渦巻く壊れた世界")
             {
                 string postStr = ANEI_POST(time);
                 ServiceClient.sendMessage(postStr);
             }
             else
             {
-                (int day, DateTime nextday) = RecommendQuestCalculator.nextQuest(0, time);
+                (int day, DateTime nextday) = RecommendQuestCalculator.nextQuest("暗影渦巻く壊れた世界", time);
                 string postStr = string.Format("今日のおすすめクエストは{0}です。次の暗影は{1}です。",
-                    RecommendQuestCalculator.getRecommendQuestName(index),
+                    quest_name,
                     nextday.ToString("MM月dd日"));
                 ServiceClient.sendMessage(postStr);
             }

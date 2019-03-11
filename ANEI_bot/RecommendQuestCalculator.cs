@@ -7,7 +7,9 @@ namespace ANEI_bot
     static class RecommendQuestCalculator
     {
         //基準となる日(暗影の日)
-        static DateTime epoc = new DateTime(2018,5,31);
+        //static DateTime epoc = new DateTime(2018, 5, 31);
+
+        static QuestConfiguraor questConfig = new QuestConfiguraor();
 
         /// <summary>
         /// DateTimeの時分秒をすべて0にする
@@ -16,20 +18,49 @@ namespace ANEI_bot
         /// <returns>fixed datatime</returns>
         static private DateTime fixDateTime(DateTime time)
         {
-            return new DateTime(time.Month, time.Month, time.Day, 0, 0, 0);
+            return new DateTime(time.Year, time.Month, time.Day, 0, 0, 0);
         }
 
 
         /// <summary>
         /// 引数の日のおすすめクエストを返す。
-        /// 0:暗影
         /// </summary>
         /// <param name="time"></param>
         /// <returns>おすすめクエスト</returns>
-        public static int recommandQuest(DateTime time)
+        public static string recommandQuest(DateTime time)
         {
+            QuestConfig qst = getQuestConfig(time);
+            DateTime epoc = qst.epoch_day;
+
             TimeSpan ts = time - epoc;
-            return ts.Days % 5;
+            return qst.quest_names[ts.Days % 5];
+        }
+
+        /// <summary>
+        /// 引数の日がどのQuestConifigになるかを返す
+        /// </summary>
+        /// <param name="time">時間</param>
+        /// <returns>その日のQuestConfig</returns>
+        public static QuestConfig getQuestConfig(DateTime time)
+        {
+            DateTime fixedTime = fixDateTime(time);
+            int count = 0;
+
+            foreach (QuestConfig q in questConfig.quests)
+            {
+                if ((count + 1) != questConfig.quests.Count)
+                {
+                    DateTime nextQuest = questConfig.quests[count + 1].start_time;
+                    nextQuest -= new TimeSpan(1, 0, 0, 0);
+                    if ((q.start_time <= time) && (nextQuest >= time))
+                    {
+                        return q;
+                    }
+                }
+                count++;
+            }
+
+            return questConfig.quests[questConfig.quests.Count - 1];
         }
 
         /// <summary>
@@ -39,9 +70,9 @@ namespace ANEI_bot
         /// <param name="quest"></param>
         /// <param name="nowDay"></param>
         /// <returns>その日までの日数、クエストの日</returns>
-        public static (int days,DateTime day) nextQuest(int quest,DateTime nowDay)
+        public static (int days, DateTime day) nextQuest(string quest, DateTime nowDay)
         {
-            DateTime start = new DateTime(nowDay.Year, nowDay.Month, nowDay.Day, 0, 0, 0);
+            DateTime start = fixDateTime(nowDay);
             int day = 0;
 
             while (quest != recommandQuest(start))
@@ -60,16 +91,17 @@ namespace ANEI_bot
         /// <param name="quest"></param>
         /// <param name="nowDay"></param>
         /// <returns></returns>
-        public static (int days, DateTime day) nextnextQuest(int quest, DateTime nowDay)
+        public static (int days, DateTime day) nextnextQuest(string quest, DateTime nowDay)
         {
             (int d, DateTime time) = nextQuest(quest, nowDay);
-            if(d == 0)
+            if (d == 0)
             {
-                return (5,time + new TimeSpan(5, 0, 0, 0));
+                DateTime addOneday = (fixDateTime(nowDay) + new TimeSpan(1, 0, 0, 0));
+                return nextQuest(quest,addOneday);
             }
             else
             {
-                return (d,time);
+                return (d, time);
             }
         }
 
@@ -78,6 +110,7 @@ namespace ANEI_bot
         /// </summary>
         /// <param name="index"></param>
         /// <returns>クエスト名</returns>
+        /*
         public static string getRecommendQuestName(int index)
         {
             switch (index)
@@ -97,5 +130,6 @@ namespace ANEI_bot
 
             }
         }
+        */
     }
 }
