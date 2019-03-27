@@ -51,8 +51,8 @@ namespace ANEI_bot
                 if ((count + 1) != questConfig.quests.Count)
                 {
                     DateTime nextQuest = questConfig.quests[count + 1].start_time;
-                    nextQuest -= new TimeSpan(1, 0, 0, 0);
-                    if ((q.start_time <= time) && (nextQuest >= time))
+                    //nextQuest -= new TimeSpan(1, 0, 0, 0);
+                    if ((q.start_time <= time) && (nextQuest > time))
                     {
                         return q;
                     }

@@ -14,6 +14,7 @@ namespace ANEI_bot
             outputTitle();
             controller = new BotController();
             loop = true;
+            //Console.WriteLine("debug:{0}", RecommendQuestCalculator.recommandQuest(DateTime.Now));
             inputCMD();
         }
 
@@ -47,6 +48,9 @@ namespace ANEI_bot
                     {
                         Console.WriteLine("内容がありません。");
                     }
+                    break;
+                case "repost":
+                    controller.postRecommendQuest(DateTime.Now);
                     break;
 
                 case "stop":

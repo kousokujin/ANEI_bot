@@ -44,7 +44,7 @@ namespace ANEI_bot
 
             QuestConfig q3 = new QuestConfig();
             q3.epoch_day = new DateTime(2018, 5, 31);
-            q3.start_time = new DateTime(2018, 4, 4);
+            q3.start_time = new DateTime(2019, 4, 4);
             q3.quest_names = new List<string>() { "暗影渦巻く壊れた世界", "境界を貫く双角の凶鳥", "混沌導く闇の化身", "混沌産み出す闇の化身", "混沌喚び出す龍の咆哮" };
             quests.Add(q3);
         }
