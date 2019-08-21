@@ -11,23 +11,16 @@ namespace ANEI_test
         [TestMethod]
         public void RecomQuest_test()
         {
-            List<string> quest_list = new List<string>() { "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE", "‹«ŠE‚ğŠÑ‚­‘oŠp‚Ì‹¥’¹", "¬“×“±‚­ˆÅ‚Ì‰»g", "¬“×Y‚İo‚·ˆÅ‚Ì‰»g", "¬“×Š«‚Ño‚·—´‚Ì™ôšK" };
-            DateTime d = new DateTime(2019, 3, 22);
-            DateTime epc = new DateTime(2019, 3, 28);
+            //List<string> quest_list = new List<string>() { "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE", "‹«ŠE‚ğŠÑ‚­‘oŠp‚Ì‹¥’¹", "¬“×“±‚­ˆÅ‚Ì‰»g", "¬“×Y‚İo‚·ˆÅ‚Ì‰»g", "¬“×Š«‚Ño‚·—´‚Ì™ôšK" };
+            List<string> quest_list = new List<string>(){ "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE" ,"•½‰¸‚ğˆø‚«—ô‚­¬“×", "¬“×“±‚­ˆÅ‚Ì‰»g", "ío‚ğµ‚­–‚é‚Ì‹ºˆĞ", "Ãâ‚É¶‚Ü‚ê‚µ¬“×"};
+            DateTime d = new DateTime(2019, 8, 21);
+            DateTime epc = new DateTime(2019, 8, 20);
 
             for (int i = 0; i < 30; i++)
             {
                 string quest = RecommendQuestCalculator.recommandQuest(d);
-                if(d >= epc)
-                {
-                    string expect = "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE";
-                    Assert.AreEqual(expect, quest);
-                }
-                else
-                {
-                    string expect = quest_list[i % 5];
-                    Assert.AreEqual(expect, quest);
-                }
+                int expect_day = (d - epc).Days % 5;
+                Assert.AreEqual(quest_list[expect_day], quest);
 
                 d += new TimeSpan(1, 0, 0, 0);
             }
@@ -37,36 +30,24 @@ namespace ANEI_test
         public void NextDay_test()
         {
             string quest = "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE";
-            DateTime d = new DateTime(2019, 3, 22);
-            DateTime NextAnei = new DateTime(2019, 3, 22);
-            DateTime epc = new DateTime(2019, 3, 28);
+            DateTime d = new DateTime(2019, 8, 21);
+            //DateTime NextAnei = new DateTime(2019, 8, 25);
+            DateTime epc = new DateTime(2019, 8, 20);
 
             for (int i = 0; i < 30; i++)
             {
                 (int day, DateTime time) = RecommendQuestCalculator.nextQuest(quest, d);
-                if (d >= epc)
+
+                int expect_day = (d - epc).Days % 5;
+                if(expect_day != 0)
                 {
-
-                    int expect_day = 0;
-                    Assert.AreEqual(expect_day, day);
-                    Assert.AreEqual(d, time);
-
+                    expect_day = 5 - expect_day;
                 }
-                else
-                {
-                    int expect_day = (i % 5);
-                    if(expect_day != 0)
-                    {
-                        expect_day = 5 - expect_day;
-                    }
-                    Assert.AreEqual(expect_day, day);
-                    Assert.AreEqual(NextAnei, time);
 
-                    if (i % 5 == 0)
-                    {
-                        NextAnei += new TimeSpan(5, 0, 0, 0);
-                    }
-                }
+                DateTime expect_time = d + new TimeSpan(expect_day, 0, 0, 0);
+                Assert.AreEqual(expect_day, day);
+                Assert.AreEqual(expect_time, time);
+
 
                 d += new TimeSpan(1, 0, 0, 0);
             }
@@ -76,40 +57,18 @@ namespace ANEI_test
         public void NextNextDay_test()
         {
             string quest = "ˆÃ‰e‰QŠª‚­‰ó‚ê‚½¢ŠE";
-            DateTime d = new DateTime(2019, 3, 22);
-            DateTime NextAnei = new DateTime(2019, 3, 22);
-            DateTime epc = new DateTime(2019, 3, 28);
+            DateTime d = new DateTime(2019, 8, 21);
+            DateTime NextAnei = new DateTime(2019, 8, 25);
+            DateTime epc = new DateTime(2019, 8, 20);
 
             for (int i = 0; i < 30; i++)
             {
                 (int day, DateTime time) = RecommendQuestCalculator.nextnextQuest(quest, d);
-                if (d >= epc)
-                {
+                int expect_day = 5 - (d - epc).Days % 5;
+                DateTime expect_time = d + new TimeSpan(expect_day, 0, 0, 0);
 
-                    int expect_day = 1;
-                    DateTime expect_time = d + new TimeSpan(1, 0, 0, 0);
-                    Assert.AreEqual(expect_day, day);
-                    Assert.AreEqual(expect_time,time);
-
-                }
-                else
-                {
-                    int expect_day = 5 - (i % 5);
-                    if(i % 5 == 0)
-                    {
-                        DateTime tmp = NextAnei + new TimeSpan(5, 0, 0, 0);
-                        if (tmp < epc)
-                        {
-                            NextAnei += new TimeSpan(5, 0, 0, 0);
-                        }
-                        else
-                        {
-                            NextAnei = epc;
-                        }
-                    }
-                    Assert.AreEqual(expect_day, day);
-                    Assert.AreEqual(NextAnei, time);
-                }
+                Assert.AreEqual(expect_day, day);
+                Assert.AreEqual(expect_time, time);
 
                 d += new TimeSpan(1, 0, 0, 0);
             }
