@@ -59,12 +59,27 @@ namespace ANEI_bot
                 case "exit":
                     loop = false;
                     break;
-
+                case "show":
+                    showRecomList();
+                    break;
                 case "":
                     break;
                 default:
                     Console.WriteLine("コマンドが見つかりません。");
                     break;
+            }
+        }
+
+        private void showRecomList()
+        {
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            TimeSpan ts = new TimeSpan(1, 0, 0, 0);
+
+            for (int i = 0; i < 20; i++)
+            {
+                string quest = RecommendQuestCalculator.recommandQuest(dt);
+                Console.WriteLine("{0}:{1}", dt.ToString("yyyy/MM/dd"), quest);
+                dt += ts;
             }
         }
 
